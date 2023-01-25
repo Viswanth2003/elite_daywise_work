@@ -1,0 +1,21 @@
+class Solution {
+    int max=-1;
+    void fun(TreeNode root,List<Integer> list,int level){
+        if(root==null ){
+            return;
+        }
+        list.add(root.val);
+        if(root.right!=null){
+            fun(root.right,list);
+        }
+        fun(root.left,list);
+    }
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+        if(root==null){
+            return list;
+        }
+        fun(root,list);
+        return list;
+    }
+}
