@@ -1,0 +1,28 @@
+class Solution {
+    List<Integer> list = new ArrayList<>();
+    void inorder(TreeNode root){
+        if(root==null){
+            return;
+        }
+        list.add(root.val);
+        inorder(root.left);
+        inorder(root.right);
+        
+    }
+    void fun(TreeNode root,int c){
+        root.right=new TreeNode(list.get(c));
+    }
+    public void flatten(TreeNode root) {
+        inorder(root);
+        if(root!=null){
+            root.left=null;
+            root.right=null;
+        }
+        int c=1;
+        while(c<list.size()){
+            fun(root,c);
+            c++;
+            root=root.right;
+        }
+    }
+}
