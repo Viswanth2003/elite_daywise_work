@@ -1,0 +1,29 @@
+class Solution {
+            List<Integer> list = new ArrayList<>();
+    void Inorder(TreeNode root){
+        if(root == null){
+            return;
+        }
+        Inorder(root.left);
+        list.add(root.val);
+        Inorder(root.right);
+    }
+    void insert(TreeNode root,int c){
+        root.right = new TreeNode(list.get(c));
+    }
+    public TreeNode increasingBST(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        Inorder(root);
+        root =new TreeNode(list.get(0));
+        TreeNode temp = root;
+        int c=1;
+        while(c!=list.size()){
+            insert(root,c);
+            c++;
+            root=root.right;
+        }
+        return temp;
+    }
+}
