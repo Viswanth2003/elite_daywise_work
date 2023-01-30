@@ -1,0 +1,22 @@
+class Solution {
+    int upper = 10000;
+    int[] cur={0};
+    public TreeNode cT(int [] preorder,int upper){
+        
+        System.out.println(cur[0]);
+        if(cur[0]==preorder.length ){
+            return null;
+        }
+        if(upper<preorder[cur[0]]){
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[cur[0]++]);
+
+        node.left = cT(preorder,node.val);
+        node.right = cT(preorder,upper);
+        return node;
+    }
+    public TreeNode bstFromPreorder(int[] preorder) { 
+        return cT(preorder,upper);
+    }
+}
