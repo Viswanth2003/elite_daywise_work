@@ -1,0 +1,25 @@
+class Solution {
+    public void inorder(TreeNode root,List<Integer> al) {  
+        if(root == null)
+            return;
+        inorder(root.left,al);
+        al.add(root.val);
+        inorder(root.right,al);         
+    }
+    public boolean findTarget(TreeNode root, int k) {
+        List<Integer> list = new ArrayList<Integer>();
+        inorder(root, list);
+        System.out.println(list);
+        int s = 0, e = list.size()- 1;
+        while(s<e){
+            if(list.get(s)+list.get(e)==k){
+                return true;
+            }else if(list.get(s)+list.get(e)>k){
+                e-=1;
+            }else{
+                s+=1;
+            }
+        }
+        return false;
+    }
+}
