@@ -1,0 +1,40 @@
+import java.util.*;
+class Solution {
+        int max = 0;
+    static boolean checkTree(long upper,long lower,TreeNode root){
+        if(root==null){
+            return true;
+        }
+        if(root.val<=lower || root.val>=upper){
+            return false;
+        }
+        return checkTree(root.val,lower,root.left) && checkTree(upper,root.val,root.right);
+        
+    }
+    public static boolean isValidBST(TreeNode root) {
+        long upper = Long.MAX_VALUE;
+        long lower = Long.MIN_VALUE;
+        return checkTree(upper,lower,root);
+    }
+    public static int sum(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        return root.val+sum(root.left)+sum(root.right);
+    }
+    public int maxSumBST(TreeNode root){
+
+        if(root==null){
+            return 0;
+        }
+        if(isValidBST(root)){
+            int n1 = sum(root);
+            if(max<n1){
+                max=n1;
+            }
+        }
+        maxSumBST(root.left);
+        maxSumBST(root.right);
+        return max;
+    }
+}
