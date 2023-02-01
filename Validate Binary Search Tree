@@ -1,0 +1,17 @@
+class Solution {
+    static boolean checkTree(long upper,long lower,TreeNode root){
+        if(root==null){
+            return true;
+        }
+        if(root.val<=lower || root.val>=upper){
+            return false;
+        }
+        return checkTree(root.val,lower,root.left) && checkTree(upper,root.val,root.right);
+        
+    }
+    public boolean isValidBST(TreeNode root) {
+        long upper = Long.MAX_VALUE;
+        long lower = Long.MIN_VALUE;
+        return checkTree(upper,lower,root);
+    }
+}
