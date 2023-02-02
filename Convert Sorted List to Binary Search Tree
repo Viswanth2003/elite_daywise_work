@@ -1,0 +1,30 @@
+class Solution {
+    static int mid;
+    static TreeNode cT(int[] nums,int start,int end){
+        if(start>end){
+            return null;
+        }
+        int mid = (start+end)/2;
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left = cT(nums,start,mid-1);
+        node.right=cT(nums,mid+1,end);
+        return node;
+    }
+    public TreeNode sortedListToBST(ListNode head) {
+        ListNode curr = head;
+        int cnt = 0;
+        while (curr != null)
+        {
+            cnt++;
+            curr = curr.next;
+        }
+        int []arr = new int[cnt];
+        int index = 0;
+        ListNode curr1 = head;
+        while (curr1 != null) {       
+            arr[index++] = curr1.val;
+            curr1 = curr1.next;
+        }
+        return cT(arr,0,arr.length-1);
+    }
+}
