@@ -1,0 +1,78 @@
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root==null){
+            return null;
+        }
+        if(root.val==key && (root.left==null && root.right==null)){
+             return null;
+        }
+        if(root.val==key){
+            if(root.left==null){
+                root=root.right;
+            }else if(root.right==null){
+                root=root.left;
+            }
+        }
+        TreeNode par = null;
+        TreeNode cur = root;
+        while(cur!=null && cur.val!=key){
+            par=cur;
+            if(key<cur.val){
+                cur=cur.left;
+            }else{
+                cur = cur.right;
+            }
+        }
+        if(cur==null) return root;
+        int x=0;
+        if(cur.left!=null && cur.right!=null){
+            x=1;
+            TreeNode temp = cur.left;
+            par = cur;
+            while(temp.right!=null){
+                par=temp;
+                temp=temp.right;
+            }
+            int temp1 = temp.val;
+            temp.val=cur.val;
+            cur.val=temp1;
+            cur=temp;
+            System.out.println(par.val+ " " +cur.val);
+        }
+        int f=0;
+        if(par.left==cur && x==1){
+            f=1;
+            if(cur.left ==null && cur.right==null){
+                if(par.left==cur){
+                    par.left=null;
+                }else{
+                    par.right=null;
+                }
+            }
+            if(cur.left!=null){
+                par.left=cur.left;
+            }
+            if(cur.right!=null){
+                par.right=cur.right;
+            }
+        }
+        if(f==0){
+        if(par.val<cur.val){
+            if(cur.left!=null){
+                    par.right=cur.left;
+                }
+                else{
+                    par.right = cur.right;
+                }
+            }
+            else{
+                if(cur.left!=null){
+                    par.left=cur.left;
+                }else{
+                    par.left=cur.right;
+                }
+            }
+        }
+        return root;
+    }
+}
