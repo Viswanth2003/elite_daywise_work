@@ -1,0 +1,32 @@
+class Solution {
+   int maxwidth=0;
+    public int widthOfBinaryTree(TreeNode root) {
+        Pair<TreeNode, Integer> pair = new Pair(root, 0);
+
+         Queue<Pair<TreeNode, Integer>> q=new LinkedList<>();
+         q.add(pair);
+
+         while (!q.isEmpty())
+         {
+            int size=q.size();   
+            int r=q.peek().getValue(); 
+            ArrayList<Integer> list = new ArrayList<>();  
+            for(int i =0;i<size;i++)
+            { 
+                Pair<TreeNode, Integer> cur = q.poll();
+                r=cur.getValue();
+                list.add(r);
+                
+                if( cur.getKey().left !=null) q.add(new Pair(cur.getKey().left,cur.getValue()*2+1));
+                if( cur.getKey().right !=null) q.add(new Pair(cur.getKey().right,cur.getValue()*2+2));
+            } 
+            System.out.println(list);
+            int l=list.get(0);  
+            maxwidth=Math.max(maxwidth,r-l+1);
+
+         }
+         return maxwidth;
+    }
+
+
+}
