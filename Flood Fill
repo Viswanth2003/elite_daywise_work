@@ -1,0 +1,30 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int clr = image[sr][sc];
+        int row = image.length;
+        int col = image[0].length;
+        image[sr][sc] = color;
+        Queue<Pair>qu = new LinkedList<>();
+        qu.add(new Pair(sr,sc));
+        int[] rowarray = {-1,0,1,0};
+        int[] colarray = {0,1,0,-1};
+        while(!qu.isEmpty()){
+            int size = qu.size();
+            for(int i=0;i<size;i++){
+                Pair cur = qu.poll();
+                int r = (Integer)cur.getKey();
+                int c = (Integer)cur.getValue();
+                for(int j=0;j<4;i++){
+                    int r1 = r+ rowarray[j];
+                    int c1 = c+ colarray[j];
+                    if(r1<0 || c1<0 || r1>=row || c1>=col) continue;
+                    if(image[r1][c1]==clr){
+                        image[r1][c1]=color;
+                        qu.offer(new Pair(r1,c1));
+                    }
+                }
+            }
+        }
+        return image;
+    }
+}
