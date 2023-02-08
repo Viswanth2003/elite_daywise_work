@@ -1,0 +1,38 @@
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        
+        int row = grid.length;
+        int col = grid[0].length;
+        System.out.println(row+ " " + col);
+        if(row==1 && col==1 && grid[0][0]==0) return 1;
+        if(grid[0][0]==1 || grid[row-1][col-1]==1) return -1;
+        int t=1;
+        boolean[][] visited = new boolean[row][col];
+        Queue<Pair> qu = new LinkedList<>();
+        qu.add(new Pair(0,0));
+        visited[0][0]=true;
+        int[] rowarr = {-1,-1,-1,0,1,1,1,0};
+        int[] colarr = {-1,0,1,1,1,0,-1,-1};
+        while(!qu.isEmpty()){
+            int size = qu.size();
+            for(int i=0;i<size;i++){
+                Pair cur = qu.poll();
+                int r = (Integer)cur.getKey();
+                int c = (Integer)cur.getValue();
+                System.out.println(r + "  " + c);
+                for(int j=0;j<8;j++){
+                    int r1 = r+rowarr[j];
+                    int c1 = c+colarr[j];
+                    if((r1<0 || r1>=row || c1<0 || c1>=col)) continue;
+                    if(r1==row-1 && c1==col-1) return t+1;
+                    if(!visited[r1][c1] && grid[r1][c1]==0){
+                        qu.add(new Pair(r1,c1));
+                        visited[r1][c1]=true;
+                    }
+                }
+            }
+            t++;
+        }
+        return -1;
+    }
+}
